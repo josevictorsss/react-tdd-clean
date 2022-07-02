@@ -18,12 +18,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts(x)?$/,
+        test: /\.ts(x?)$/,
         loader: 'ts-loader',
         exclude: /node_modules/
       },
       {
-        test: /\.scss$/,
+        test: /\.(s?)css$/,
         use: [
           {
             loader: 'style-loader'
@@ -42,9 +42,11 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: './public',
-    writeToDisk: true,
-    historyApiFallback: true
+    static: './public',
+    historyApiFallback: true,
+    devMiddleware: {
+      writeToDisk: true
+    }
   },
   externals: {
     react: 'React',
