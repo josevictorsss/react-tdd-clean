@@ -1,7 +1,7 @@
 import Footer from '@/presentation/components/footer/footer'
+import FormStatus from '@/presentation/components/formStatus/formStatus'
 import Input from '@/presentation/components/input/input'
 import LoginHeader from '@/presentation/components/loginHeader/loginHeader'
-import Spinner from '@/presentation/components/spinner/spinner'
 import React from 'react'
 import Styles from './login-styles.scss'
 
@@ -17,10 +17,7 @@ const Login: React.FC = () => {
           Entrar
         </button>
         <span className={Styles.link}> Criar conta </span>
-        <div className={Styles.erroWrap}>
-          <Spinner className={Styles.spinner} />
-          <span className={Styles.error}></span>
-        </div>
+        <FormStatus />
       </form>
       <Footer />
     </div>
