@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/josevictorsss/react-tdd-clean#readme",
   "devDependencies": {
+    "@testing-library/react": "^13.3.0",
     "@types/axios": "^0.14.0",
     "@types/faker": "^4.1.11",
     "@types/jest": "^28.1.3",
