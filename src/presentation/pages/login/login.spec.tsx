@@ -12,7 +12,7 @@ import {
 import faker from 'faker'
 import React from 'react'
 import 'jest-localstorage-mock'
-import Login from './login'
+import { Login } from '@/presentation/pages'
 
 type SutTypes = {
   sut: RenderResult
