@@ -29,7 +29,8 @@ jobs:
         npx webpack
   test-coverage:
     runs-on: ubuntu-latest
-        strategy:
+    
+    strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
     
