@@ -25,13 +25,14 @@ jobs:
     - name: npm install
       run: npm install
 
+    - name: Build
+      run: |
+        npm run test:coveralls
+        npx webpack
+        
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         parallel: true
 
-    - name: Build
-      run: |
-        npm run test:coveralls
-        npx webpack
