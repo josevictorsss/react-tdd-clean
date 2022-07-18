@@ -25,12 +25,8 @@ jobs:
     - name: npm install
       run: npm install
 
-    - name: Build
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel: true
+    - name: build
       run: |
-        npm run test:coveralls
+        npm run test:ci
         npx webpack
 
