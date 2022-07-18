@@ -22,13 +22,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Coveralls Parallel
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel: true
+
     - name: Build
       run: |
         npm install
         npm run test:coveralls
         npx webpack
-
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: process.env.GITHUB_TOKEN
