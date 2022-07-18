@@ -27,3 +27,5 @@ jobs:
         npm install
         npm run test:coveralls
         npx webpack
+      with:
+        github-token: ${{ secrets.github_token }}
