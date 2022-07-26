@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { SetStorageSpy } from '@/data/test/mockStorage'
+import { SetStorageMock } from '@/data/test/mockStorage'
 import { LocalSaveAccessToken } from './localSaveAccessToken'
 import faker from 'faker'
 
 type SutTypes = {
   sut: LocalSaveAccessToken
-  setStorageSpy: SetStorageSpy
+  setStorageMock: SetStorageMock
 }
 
 const makeSut = (): SutTypes => {
-  const setStorageSpy = new SetStorageSpy()
-  const sut = new LocalSaveAccessToken(setStorageSpy)
-  return { sut, setStorageSpy }
+  const setStorageMock = new SetStorageMock()
+  const sut = new LocalSaveAccessToken(setStorageMock)
+  return { sut, setStorageMock }
 }
 
 describe('LocalSaveAccessToken', () => {
   test('Shoud call SetStorage with correct value', async () => {
-    const { sut, setStorageSpy } = makeSut()
+    const { sut, setStorageMock } = makeSut()
     const accessToken = faker.random.uuid()
     await sut.save(accessToken)
-    expect(setStorageSpy.key).toBe('accessToken')
-    expect(setStorageSpy.value).toBe(accessToken)
+    expect(setStorageMock.key).toBe('accessToken')
+    expect(setStorageMock.value).toBe(accessToken)
   })
 })
