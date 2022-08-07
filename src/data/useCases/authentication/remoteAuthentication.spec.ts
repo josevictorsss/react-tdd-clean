@@ -1,4 +1,4 @@
-import { HttpPostClientSpy } from '@/data/test/mockHttpClient'
+import { HttpPostClientSpy } from '@/data/test'
 import { HttpStatusCode } from '@/data/protocols/http'
 import { RemoteAuthentication } from './remoteAuthentication'
 import { mockAccountModel, mockAuthentication } from '@/domain/test/mockAccount'

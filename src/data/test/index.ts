@@ -1,2 +1,2 @@
-export * from './mockHttpClient'
-export * from './mockHttpPost'
+export * from './mockHttp'
+export * from './mockCache'
