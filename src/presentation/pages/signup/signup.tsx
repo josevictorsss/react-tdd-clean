@@ -9,7 +9,7 @@ import Styles from './signup-styles.scss'
 import Context from '@/presentation/contexts/form/formContext'
 import { Validation } from '@/presentation/protocols/validation'
 import { AddAccount, SaveAccessToken } from '@/domain/useCases'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 type Props = {
   validation: Validation
@@ -17,7 +17,11 @@ type Props = {
   saveAccessToken: SaveAccessToken
 };
 
-const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Props) => {
+const Signup: React.FC<Props> = ({
+  validation,
+  addAccount,
+  saveAccessToken
+}: Props) => {
   const history = useHistory()
   const [state, setState] = useState({
     isLoading: false,
@@ -115,10 +119,9 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
           >
             Entrar
           </button>
-          <span data-testid="signup" className={Styles.link}>
-            {' '}
-            Voltar para Login{' '}
-          </span>
+          <Link data-testid="login" replace to="/login" className={Styles.link}>
+            Voltar para Login
+          </Link>
           <FormStatus />
         </form>
       </Context.Provider>
