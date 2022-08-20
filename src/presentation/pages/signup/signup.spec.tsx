@@ -8,28 +8,45 @@ import {
   RenderResult,
   waitFor
 } from '@testing-library/react'
-import { AddAccountSpy, Helper, ValidationStub } from '@/presentation/test'
+import {
+  AddAccountSpy,
+  Helper,
+  SaveAccessTokenMock,
+  ValidationStub
+} from '@/presentation/test'
 import { EmailInUseError } from '@/domain/errors'
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
 
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 };
 
 type SutParams = {
   validationError: string
 };
 
+const history = createMemoryHistory({ initialEntries: ['/signup'] })
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.errorMessage = params?.validationError
   const addAccountSpy = new AddAccountSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   const sut = render(
-    <Signup validation={validationStub} addAccount={addAccountSpy} />
+    <Router history={history}>
+      <Signup
+        validation={validationStub}
+        addAccount={addAccountSpy}
+        saveAccessToken={saveAccessTokenMock}
+      />
+    </Router>
   )
   return {
     sut,
-    addAccountSpy
+    addAccountSpy,
+    saveAccessTokenMock
   }
 }
 
@@ -160,13 +177,21 @@ describe('SignUp Component', () => {
   test('Should present error if AddAccount fails', async () => {
     const { sut, addAccountSpy } = makeSut()
     const error = new EmailInUseError()
-    jest
-      .spyOn(addAccountSpy, 'add')
-      .mockRejectedValueOnce(error)
+    jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error)
     await simulateValidSubmit(sut)
     await waitFor(() => {
       Helper.testElementText(sut, 'main-error', error.message)
       Helper.testChildCount(sut, 'error-wrap', 1)
     })
+  })
+
+  test('Should call SaveAccessToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
+    await simulateValidSubmit(sut)
+    expect(saveAccessTokenMock.accessToken).toBe(
+      addAccountSpy.account.accessToken
+    )
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/')
   })
 })
