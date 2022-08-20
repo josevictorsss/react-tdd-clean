@@ -61,16 +61,6 @@ const simulateValidSubmit = async (
   fireEvent.submit(form)
   await waitFor(() => form)
 }
-
-const testElementText = (
-  sut: RenderResult,
-  fieldName: string,
-  text: string
-): void => {
-  const el = sut.getByTestId(fieldName)
-  expect(el.textContent).toBe(text)
-}
-
 describe('Login', () => {
   afterEach(cleanup)
 
@@ -155,7 +145,7 @@ describe('Login', () => {
       .mockReturnValueOnce(Promise.reject(error))
     await simulateValidSubmit(sut)
     await waitFor(() => {
-      testElementText(sut, 'main-error', error.message)
+      Helper.testElementText(sut, 'main-error', error.message)
       Helper.testChildCount(sut, 'error-wrap', 1)
     })
   })
@@ -178,7 +168,7 @@ describe('Login', () => {
       .mockReturnValueOnce(Promise.reject(error))
     await simulateValidSubmit(sut)
     await waitFor(() => {
-      testElementText(sut, 'main-error', error.message)
+      Helper.testElementText(sut, 'main-error', error.message)
       Helper.testChildCount(sut, 'error-wrap', 1)
     })
   })
